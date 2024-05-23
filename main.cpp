@@ -2,27 +2,44 @@
 
 using namespace std;
 
+int different_indices(string base_string, string string_to_compare);
+
 int main() {
 
     ios::sync_with_stdio(0);
     cin.tie(0);
 
     // Exercise difficulty: 800
-    // Exercise name: Elephant
-    // Link to the exercise: https://codeforces.com/problemset/problem/617/A
+    // Exercise name: A love story
+    // Link to the exercise: https://codeforces.com/problemset/problem/1829/A
 
     // Solution:
-    int house = 0;
+    string base_string = "codeforces";
 
-    cin >> house;
+    int test_cases = 0;
 
-    int steps = house / 5;
-    if (house % 5 == 0){
-        cout << steps << "\n";
-    } else {
-        steps += 1;
-        cout << steps << "\n";
+    cin >> test_cases;
+
+    vector<string> my_strings(test_cases);
+
+    for (int i = 0; i < test_cases; i++) {
+        cin >> my_strings[i];
+    }
+
+    for (int i = 0; i < test_cases; i++) {
+        cout << different_indices(base_string, my_strings[i]) << "\n";
     }
 
     return 0;
+}
+
+int different_indices(string base_string, string string_to_compare) {
+    int differences = 0;
+    int n = 10;
+    for (int i = 0; i < n; i++) {
+        if (base_string[i] != string_to_compare[i]) {
+            differences++;
+        }
+    }
+    return differences;
 }
