@@ -8,8 +8,8 @@ int main() {
     cin.tie(0);
 
     // Exercise difficulty: 800
-    // Exercise name: Polycarp and sum of subsequences
-    // Link to the exercise: https://codeforces.com/problemset/problem/1618/A
+    // Exercise name: Min Max swap
+    // Link to the exercise: https://codeforces.com/problemset/problem/1631/A
 
     // Solution:
 
