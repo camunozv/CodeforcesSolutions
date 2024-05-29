@@ -57,7 +57,6 @@ int min_max_swap(vector<int> &a, vector<int> &b, int n) {
     int max_b = b[0];
 
     for (int i = 1; i < n; i++) {
-
         if (a[i] > max_a) {
             max_a = a[i];
         }
