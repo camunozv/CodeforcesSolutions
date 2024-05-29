@@ -2,7 +2,9 @@
 
 using namespace std;
 
-int min_max_swap(vector<int> &a, vector<int> &b, int n);
+int euclides_algorithm(int a, int b);
+
+int solution(int x);
 
 int main() {
 
@@ -10,60 +12,57 @@ int main() {
     cin.tie(0);
 
     // Exercise difficulty: 800
-    // Exercise name: Min Max swap
-    // Link to the exercise: https://codeforces.com/problemset/problem/1631/A
+    // Exercise name: A. Maximize?
+    // Link to the exercise: https://codeforces.com/problemset/problem/1968/A
 
     // Solution:
 
     int t = 0;
+
     cin >> t;
 
-    int i = 0;
-    int n = 0;
+    vector<int> test_cases(t);
 
-    while (i < t) {
-        cin >> n;
-        vector<int> a(n);
-        vector<int> b(n);
+    for (int i = 0; i < t; i++) {
+        cin >> test_cases[i];
+    }
 
-        for (int j = 0; j < n; j++) {
-            cin >> a[j];
-        }
-
-        for (int j = 0; j < n; j++) {
-            cin >> b[j];
-        }
-
-        cout << min_max_swap(a, b, n) << "\n";
-        i++;
+    for (int i = 0; i < t; i++) {
+        cout << solution(test_cases[i]) << "\n";
     }
 
     return 0;
 }
 
-int min_max_swap(vector<int> &a, vector<int> &b, int n) {
+int euclides_algorithm(int a, int b) {
 
-    int swap = 0;
+    int big = a > b ? a : b;
+    int small = a >= b ? b : a;
 
-    for (int i = 0; i < n; i++) {
-        if (b[i] > a[i]) {
-            swap = a[i];
-            a[i] = b[i];
-            b[i] = swap;
-        }
+    int mod = big % small;
+    int mcd = small;
+
+    while (mod != 0) {
+        big = small;
+        small = mod;
+
+        mod = big % small;
+        mcd = small;
     }
 
-    int max_a = a[0];
-    int max_b = b[0];
+    return mcd;
+}
 
-    for (int i = 1; i < n; i++) {
-        if (a[i] > max_a) {
-            max_a = a[i];
-        }
-        if (b[i] > max_b) {
-            max_b = b[i];
+int solution(int x) {
+
+    int max = 0;
+    int possible = 0;
+    for (int i = 1; i < x; i++) {
+        possible = euclides_algorithm(i, x) + i;
+        if (possible > max) {
+            max = possible;
         }
     }
-
-    return max_a * max_b;
+    max -= 1;
+    return max;
 }
