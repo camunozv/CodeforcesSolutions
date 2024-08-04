@@ -2,96 +2,47 @@
 
 using namespace std;
 
-void solve_string(string chain);
+int solve(string answers);
 
 int main() {
 
     ios::sync_with_stdio(0);
     cin.tie(0);
 
-    // Exercise difficulty: --
-    // Exercise name: Strong Password
-    // Link to the exercise: https://codeforces.com/contest/1997/problem/A
-
-    // Solution:
-
     int t = 0;
-    cin >> t;
-
+    int n = 0;
     int i = 0;
 
-    while (i < t) {
+    cin >> t;
 
-        string case_test;
-        cin >> case_test;
-        solve_string(case_test);
+    while (i < t) {
+        cin >> n;
+        string answers;
+        cin >> answers;
+
+        cout << solve(answers) << "\n";
         i++;
     }
-
 
     return 0;
 }
 
-void solve_string(string chain) {
+int solve(string answers) {
 
-    vector<char> alphabet = {
-            'a', 'b', 'c', 'd',
-            'e', 'f', 'g', 'h',
-            'i', 'j', 'k', 'l',
-            'm', 'n', 'o', 'p',
-            'q', 'r', 's', 't',
-            'u', 'v', 'w', 'x',
-            'y', 'z'
-    };
+    int result = 0;
+    int n = answers.size();
+    map<char, int> my_map;
+    my_map['A'] = n / 4;
+    my_map['B'] = n / 4;
+    my_map['C'] = n / 4;
+    my_map['D'] = n / 4;
 
-    int n = chain.size();
-    int i = 0;
-    bool equality = false;
-
-    while (i < n - 1 && !equality) {
-        if (chain[i] == chain[i + 1]) {
-            equality = true;
+    for (int i = 0; i < n; i++) {
+        if (answers[i] != '?' && my_map[answers[i]] > 0) {
+            my_map[answers[i]] -= 1;
+            result++;
         }
-        i++;
     }
 
-    i--;
-
-    if (equality) {
-        vector<char> chain_2;
-        for (int j = 0; j <= i; j++) {
-            chain_2.push_back(chain[j]);
-        }
-        int k = 0;
-        while (chain_2[i] == alphabet[k]) {
-            k++;
-        }
-
-        chain_2.push_back(alphabet[k]);
-
-        for (int r = i + 1; r < n; r++) {
-            chain_2.push_back(chain[r]);
-        }
-
-        for (auto letter: chain_2) {
-            cout << letter;
-        }
-
-        cout << "\n";
-
-    } else {
-        int k = 0;
-        while (chain[n - 1] == alphabet[k]) {
-            k++;
-        }
-
-        chain.push_back(alphabet[k]);
-
-        for (auto letter: chain) {
-            cout << letter;
-        }
-
-        cout << "\n";
-    }
-
+    return result;
 }
