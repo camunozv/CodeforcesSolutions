@@ -7,6 +7,10 @@ Makefile
 # Ignore Directory redirecting
 *.d
 
+# executable binary file
+main
+
+# Andere Settings für CLION
 # Weird CLion file
 C++CSES.iml
 
