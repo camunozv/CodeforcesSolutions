@@ -2,21 +2,15 @@
 
 using namespace std;
 
-int solve(int a, int b, int c, int d)
+int solve(int a, int b)
 {
-
-    int games = 0;
-    if (a > c && b > d)
-    {
-        games += 2;
-    }
-
-    if (a > d && b > c)
-    {
-        games += 2;
-    }
-
-    return games;
+    int ret = 0;
+    if (a > b) {
+        ret = 1;
+    } else if (a < b){
+        ret = -1;
+    } 
+    return ret;
 }
 
 int main()
@@ -37,10 +31,26 @@ int main()
 
     int k = 0;
 
+    int ans = 0;
     while (k < t)
     {
         cin >> a >> b >> c >> d;
-        cout << solve(a, b, c, d) << "\n";
+        
+        // Bajo este esquema de solución podemos contar las respuestas, sin necesidad de
+        // pensar en todos los casos.
+
+        // Es válido pensar en que alguien gana si hay 2 números iguales, por que nadie gana
+        // en esa ronda, mientras que en la otra, seguramente alguien ganará (2 números diferentes)
+        if (solve(a, c) + solve(b, d) > 0) {
+            ans += 2;
+        }
+
+        if (solve(a, d) + solve(b, c) > 0) {
+            ans += 2;
+        }
+
+        cout << ans << "\n";
+        ans = 0;
         k++;
     }
 
