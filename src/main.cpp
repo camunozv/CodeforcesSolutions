@@ -2,6 +2,33 @@
 
 using namespace std;
 
+void countOnes(string str, int &count, int n)
+{
+
+    for (int i = 0; i < n; i++)
+    {
+        if (str[i] == '1')
+        {
+            count++;
+        }
+    }
+}
+
+string solve(string readString, int k)
+{
+    
+    if (readString[k] == '0')
+    {
+        readString[k] = '1';
+    }
+    else
+    {
+        readString[k] = '0';
+    }
+
+    return readString;
+}
+
 int main()
 {
 
@@ -10,28 +37,40 @@ int main()
 
     // Exercise difficulty: N/A
     // Exercise name: Dr.TC
-    // Link to the exercise: 
+    // Link to the exercise:
     // Solution:
 
-    // Im testing a little bit the use of bitmasks. Integers can store up to 32
-    // bits, so we can manipulate them.
-    
-    // << -> this operand is truly a bit shift.
+    int t = 0;
+    cin >> t;
 
-    // So here what we are doing is shifting the number one by 0 positions, remains equal
-    // the second one we are shifting 0 by 4 positions which make it remain equal.
-    // so we can multiply by the power of two. Hence we are applying bitshift.
-    
-    // (1 << 0) -> bit 0 is now ON = 1
-    // (0 << 4) -> bit 1 is now OFF = 0
+    while (t > 0)
+    {
 
-    int k = (1 << 0) | (1 << 1);
+        int n = 0;
+        cin >> n;
 
-    cout << k << "\n";
+        string readString;
+        cin >> readString;
 
-    k = (0 << 1);
-    
-    cout << k << "\n";
+        vector<string> matrix(n);
+
+        for (int i = 0; i < n; i++)
+        {
+            matrix[i] = solve(readString, i);
+        }
+
+        int count = 0;
+
+        for (int i = 0; i < n; i++)
+        {
+            countOnes(matrix[i], count, n);
+        }
+
+        cout << count << "\n";
+
+        count = 0;
+        t--;
+    }
 
     return 0;
 }
