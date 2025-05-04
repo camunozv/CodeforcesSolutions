@@ -2,31 +2,29 @@
 
 using namespace std;
 
-void countOnes(string str, int &count, int n)
+bool solve(vector<int> &s, int &n)
 {
+
+    int count = 0;
 
     for (int i = 0; i < n; i++)
     {
-        if (str[i] == '1')
-        {
+
+        if (s[i] == i + 1)
+        { // if the number is already in its place
             count++;
         }
-    }
-}
-
-string solve(string readString, int k)
-{
-    
-    if (readString[k] == '0')
-    {
-        readString[k] = '1';
-    }
-    else
-    {
-        readString[k] = '0';
+        else if (i + 1 < n && abs(s[i] - s[i + 1] == 1))
+        {
+            // Check if they go to their place
+            if (s[i] == i + 2 && s[i + 1] == i + 1)
+            {
+                count += 2;
+            }
+        }
     }
 
-    return readString;
+    return count == n;
 }
 
 int main()
@@ -36,8 +34,8 @@ int main()
     cin.tie(0);
 
     // Exercise difficulty: N/A
-    // Exercise name: Dr.TC
-    // Link to the exercise:
+    // Exercise name: Penchick and Satay Sticks
+    // Link to the exercise: https://codeforces.com/problemset/problem/2031/B
     // Solution:
 
     int t = 0;
@@ -49,26 +47,22 @@ int main()
         int n = 0;
         cin >> n;
 
-        string readString;
-        cin >> readString;
-
-        vector<string> matrix(n);
+        vector<int> numbers(n);
 
         for (int i = 0; i < n; i++)
         {
-            matrix[i] = solve(readString, i);
+            cin >> numbers[i];
         }
 
-        int count = 0;
-
-        for (int i = 0; i < n; i++)
+        if (solve(numbers, n))
         {
-            countOnes(matrix[i], count, n);
+            cout << "YES\n";
+        }
+        else
+        {
+            cout << "NO\n";
         }
 
-        cout << count << "\n";
-
-        count = 0;
         t--;
     }
 
