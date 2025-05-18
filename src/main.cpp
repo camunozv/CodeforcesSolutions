@@ -2,29 +2,23 @@
 
 using namespace std;
 
-bool solve(vector<int> &s, int &n)
+vector<int> solve(int &n, int &x)
 {
+    vector<int> result(n);
 
-    int count = 0;
-
-    for (int i = 0; i < n; i++)
+    for (int i = 0; i < x; i++)
     {
-
-        if (s[i] == i + 1)
-        { // if the number is already in its place
-            count++;
-        }
-        else if (i + 1 < n && abs(s[i] - s[i + 1] == 1))
-        {
-            // Check if they go to their place
-            if (s[i] == i + 2 && s[i + 1] == i + 1)
-            {
-                count += 2;
-            }
-        }
+        result[i] = i;
     }
 
-    return count == n;
+    for (int i = x; i < n - 1; i++)
+    {
+        result[i] = i + 1;
+    }
+
+    result[n - 1] = x;
+
+    return result;
 }
 
 int main()
@@ -34,8 +28,8 @@ int main()
     cin.tie(0);
 
     // Exercise difficulty: N/A
-    // Exercise name: Penchick and Satay Sticks
-    // Link to the exercise: https://codeforces.com/problemset/problem/2031/B
+    // Exercise name: St. Chroma
+    // Link to the exercise: https://codeforces.com/problemset/problem/2106/B
     // Solution:
 
     int t = 0;
@@ -47,21 +41,14 @@ int main()
         int n = 0;
         cin >> n;
 
-        vector<int> numbers(n);
+        int x = 0;
+        cin >> x;
 
-        for (int i = 0; i < n; i++)
-        {
-            cin >> numbers[i];
+        for(auto x: solve(n, x)) {
+            cout << x << " ";
         }
 
-        if (solve(numbers, n))
-        {
-            cout << "YES\n";
-        }
-        else
-        {
-            cout << "NO\n";
-        }
+        cout << "\n";
 
         t--;
     }
