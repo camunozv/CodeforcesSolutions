@@ -2,30 +2,16 @@
 
 using namespace std;
 
-void multiply_vector(vector<int> &v, int i, int n)
-{
-    for (int j = i; j >= 0; j--)
-    {
-        v[j] *= 2;
-    }
-}
+vector<pair<int,int>> count_flaw(vector<int> &v, int n) {
 
-int solve(vector<int> &v, int c, int n)
-{
+    for(int i = 0; i < n; i++) {
+        pair<int,int> bad_position;
 
-    int coin_counter = n;
-
-    for (int i = n - 1; i >= 0; i--)
-    {
-        if (v[i] <= c)
-        {
-            coin_counter--;
-            multiply_vector(v, i - 1, n);
-        }
         
     }
 
-    return coin_counter;
+
+    return;
 }
 
 int main()
@@ -35,8 +21,8 @@ int main()
     cin.tie(0);
 
     // Exercise difficulty: N/A
-    // Exercise name: Recycling Center
-    // Link to the exercise: https://codeforces.com/contest/2128/problem/A
+    // Exercise name: Dequeue Process
+    // Link to the exercise: https://codeforces.com/contest/2128/problem/B
     // Solution:
 
     int t = 0;
@@ -44,12 +30,10 @@ int main()
     cin >> t;
 
     int n = 0;
-    int c = 0;
 
     while (t)
     {
         cin >> n;
-        cin >> c;
 
         vector<int> v(n);
 
@@ -58,9 +42,9 @@ int main()
             cin >> v[i];
         }
 
-        sort(v.begin(), v.end());
 
-        cout << solve(v, c, n) << "\n";
+
+        // Write solution code here.
 
         t--;
     }
