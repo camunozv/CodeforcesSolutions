@@ -54,6 +54,11 @@ void solve(vector<int> &v, string &s, int n)
             }
         }
     }
+
+    if (n % 2 == 1)
+    {
+        s += "L";
+    }
 }
 
 int main()
