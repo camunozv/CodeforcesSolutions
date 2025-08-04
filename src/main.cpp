@@ -2,16 +2,58 @@
 
 using namespace std;
 
-vector<pair<int,int>> count_flaw(vector<int> &v, int n) {
+void solve(vector<int> &v, string &s, int n)
+{
 
-    for(int i = 0; i < n; i++) {
-        pair<int,int> bad_position;
+    for (int i = 0; i < n / 2; i++)
+    {
+        int k1 = 0, k2 = 0;
+        if (i % 2 == 0)
+        {
+            k1 = max(v[i], v[n - i - 1]);
+            k2 = min(v[i], v[n - i - 1]);
+            if (k1 == v[i])
+            {
+                s += "L";
+            }
+            else
+            {
+                s += "R";
+            }
 
-        
+            if (k2 == v[i])
+            {
+                s += "L";
+            }
+            else if (k2 == v[n - i - 1])
+            {
+                s += "R";
+            }
+        }
+        else
+        {
+            k1 = min(v[i], v[n - i - 1]);
+            k2 = max(v[i], v[n - i - 1]);
+
+            if (k1 == v[i])
+            {
+                s += "L";
+            }
+            else
+            {
+                s += "R";
+            }
+
+            if (k2 == v[i])
+            {
+                s += "L";
+            }
+            else if (k2 == v[n - i - 1])
+            {
+                s += "R";
+            }
+        }
     }
-
-
-    return;
 }
 
 int main()
@@ -36,15 +78,16 @@ int main()
         cin >> n;
 
         vector<int> v(n);
+        string s = "";
 
         for (int i = 0; i < n; i++)
         {
             cin >> v[i];
         }
 
+        solve(v, s, n);
 
-
-        // Write solution code here.
+        cout << s << "\n";
 
         t--;
     }
