@@ -25,7 +25,7 @@ void solve(vector<int> &v, string &s, int n)
             {
                 s += "L";
             }
-            else if (k2 == v[n - i - 1])
+            else
             {
                 s += "R";
             }
@@ -48,7 +48,7 @@ void solve(vector<int> &v, string &s, int n)
             {
                 s += "L";
             }
-            else if (k2 == v[n - i - 1])
+            else
             {
                 s += "R";
             }
