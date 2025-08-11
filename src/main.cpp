@@ -2,63 +2,54 @@
 
 using namespace std;
 
-void solve(vector<int> &v, string &s, int n)
+bool check1(vector<int> &a, vector<int> &b, int n)
+{
+    bool flag = true;
+    int i = 0;
+    while (i < n && flag)
+    {
+        if (a[i] > b[i])
+        {
+            flag = false;
+            a[i] -= 1;
+        }
+
+        i++;
+    }
+
+    return !flag;
+}
+
+bool check2(vector<int> &a, vector<int> &b, int n)
+{
+    bool flag = true;
+    int i = 0;
+    while (i < n && flag)
+    {
+        if (a[i] < b[i])
+        {
+            flag = false;
+            a[i] += 1;
+        }
+
+        i++;
+    }
+
+    return !flag;
+}
+
+int solve(vector<int> &a, vector<int> &b, int n)
 {
 
-    for (int i = 0; i < n / 2; i++)
+    int iterations = 1;
+
+    while (check1(a, b, n))
     {
-        int k1 = 0, k2 = 0;
-        if (i % 2 == 0)
-        {
-            k1 = max(v[i], v[n - i - 1]);
-            k2 = min(v[i], v[n - i - 1]);
-            if (k1 == v[i])
-            {
-                s += "L";
-            }
-            else
-            {
-                s += "R";
-            }
-
-            if (k2 == v[i])
-            {
-                s += "L";
-            }
-            else
-            {
-                s += "R";
-            }
-        }
-        else
-        {
-            k1 = min(v[i], v[n - i - 1]);
-            k2 = max(v[i], v[n - i - 1]);
-
-            if (k1 == v[i])
-            {
-                s += "L";
-            }
-            else
-            {
-                s += "R";
-            }
-
-            if (k2 == v[i])
-            {
-                s += "L";
-            }
-            else
-            {
-                s += "R";
-            }
-        }
+        check2(a, b, n);
+        iterations++;
     }
 
-    if (n % 2 == 1)
-    {
-        s += "L";
-    }
+    return iterations;
 }
 
 int main()
@@ -68,8 +59,8 @@ int main()
     cin.tie(0);
 
     // Exercise difficulty: N/A
-    // Exercise name: Dequeue Process
-    // Link to the exercise: https://codeforces.com/contest/2128/problem/B
+    // Exercise name: Lever
+    // Link to the exercise: https://codeforces.com/contest/2131/problem/A
     // Solution:
 
     int t = 0;
@@ -83,16 +74,19 @@ int main()
         cin >> n;
 
         vector<int> v(n);
-        string s = "";
+        vector<int> w(n);
 
         for (int i = 0; i < n; i++)
         {
             cin >> v[i];
         }
 
-        solve(v, s, n);
+        for (int i = 0; i < n; i++)
+        {
+            cin >> w[i];
+        }
 
-        cout << s << "\n";
+        cout << solve(v, w, n) << "\n";
 
         t--;
     }
