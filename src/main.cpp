@@ -2,54 +2,9 @@
 
 using namespace std;
 
-bool check1(vector<int> &a, vector<int> &b, int n)
+int calculateVolume(int &w, int &h, int &l)
 {
-    bool flag = true;
-    int i = 0;
-    while (i < n && flag)
-    {
-        if (a[i] > b[i])
-        {
-            flag = false;
-            a[i] -= 1;
-        }
-
-        i++;
-    }
-
-    return !flag;
-}
-
-bool check2(vector<int> &a, vector<int> &b, int n)
-{
-    bool flag = true;
-    int i = 0;
-    while (i < n && flag)
-    {
-        if (a[i] < b[i])
-        {
-            flag = false;
-            a[i] += 1;
-        }
-
-        i++;
-    }
-
-    return !flag;
-}
-
-int solve(vector<int> &a, vector<int> &b, int n)
-{
-
-    int iterations = 1;
-
-    while (check1(a, b, n))
-    {
-        check2(a, b, n);
-        iterations++;
-    }
-
-    return iterations;
+    return w * h * l;
 }
 
 int main()
@@ -58,9 +13,9 @@ int main()
     ios::sync_with_stdio(0);
     cin.tie(0);
 
-    // Exercise difficulty: N/A
-    // Exercise name: Lever
-    // Link to the exercise: https://codeforces.com/contest/2131/problem/A
+    // Exercise difficulty: 1100
+    // Exercise name: Fibonacci cubes
+    // Link to the exercise: https://codeforces.com/problemset/problem/2111/B
     // Solution:
 
     int t = 0;
@@ -68,25 +23,48 @@ int main()
     cin >> t;
 
     int n = 0;
+    int m = 0;
+
+    int w = 0;
+    int l = 0;
+    int h = 0;
+
+    // vector<int> fibonacciNumbers = {1, 2, 3, 5, 8, 13, 21, 34, 55, 89};
+    // vector<int> volumes = {1, 8, 27, 125, 512, 2197, 9261, 39304, 166375, 704969};
+    vector<int> adds = {1, 9, 36, 161, 673, 2870, 12131, 51435, 217810, 922779};
+
+    string s = "";
 
     while (t)
     {
         cin >> n;
+        cin >> m;
 
-        vector<int> v(n);
-        vector<int> w(n);
-
-        for (int i = 0; i < n; i++)
+        while (m)
         {
-            cin >> v[i];
+
+            cin >> w;
+            cin >> l;
+            cin >> h;
+
+            int volume = calculateVolume(w, h, l);
+
+            if (volume > adds[n - 1])
+            {
+                cout << "Volume: " << volume << "\n";
+                cout << "Adds: " << adds[n - 1] << "\n";
+                s += "1";
+            }
+            else
+            {
+                s += "0";
+            }
+
+            m--;
         }
 
-        for (int i = 0; i < n; i++)
-        {
-            cin >> w[i];
-        }
-
-        cout << solve(v, w, n) << "\n";
+        cout << s << "\n";
+        s = "";
 
         t--;
     }
