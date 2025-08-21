@@ -2,20 +2,35 @@
 
 using namespace std;
 
-void solve(deque<char> &init, int &m, string &b, string &c)
+int findMinPosition(vector<int> &v)
 {
 
-    for (int i = 0; i < m; i++)
+    int best = INT_MAX;
+    int minPosition = 0;
+    for (int i = 0; i < 3; i++)
     {
-        if (c[i] == 'V')
+        if (v[i] < best)
         {
-            init.push_front(b[i]);
-        }
-        else
-        {
-            init.push_back(b[i]);
+            best = v[i];
+            minPosition = i;
         }
     }
+
+    return minPosition;
+}
+
+bool verify(vector<int> &v)
+{
+
+    int a = v[0], b = v[1], c = v[2];
+
+    bool first = a >= b / 2 && a >= c / 2;
+
+    bool second = b >= a / 2 && b >= c / 2;
+
+    bool third = c >= a / 2 && c >= b / 2;
+
+    return first && second && third;
 }
 
 int main()
@@ -24,40 +39,39 @@ int main()
     ios::sync_with_stdio(0);
     cin.tie(0);
 
-    // Exercise difficulty: N/A
-    // Exercise name: Homework
-    // Link to the exercise: https://codeforces.com/contest/2132/problem/A
+    // Exercise difficulty: 800
+    // Exercise name: Energy Crystals
+    // Link to the exercise: https://codeforces.com/contest/2111/problem/A
     // Solution:
 
-    int t = 0, n = 0, m = 0;
-
-    string a = "", b = "", c = "";
+    int t = 0, x = 0;
 
     cin >> t;
 
     while (t)
     {
-        cin >> n;
-        cin >> a;
-        cin >> m;
-        cin >> b;
-        cin >> c;
+        cin >> x;
+        vector<int> crystals = {0, 0, 0};
 
-        deque<char> result;
+        bool completed = crystals[0] == x && crystals[1] == x && crystals[2] == x;
+        int steps = 0;
+        int minPosition = 0;
 
-        for (int i = 0; i < n; i++)
+        while (!completed)
         {
-            result.push_back(a[i]);
+            minPosition = findMinPosition(crystals);
+
+            while (verify(crystals))
+            {
+                crystals[minPosition]++;
+            }
+
+            crystals[minPosition]--;
+            steps++;
+            completed = crystals[0] == x && crystals[1] == x && crystals[2] == x;
         }
 
-        solve(result, m, b, c);
-
-        for (auto x : result)
-        {
-            cout << x;
-        }
-
-        cout << "\n";
+        cout << steps << "\n";
 
         t--;
     }
