@@ -36,8 +36,8 @@ bool verify(vector<int> &v)
 int main()
 {
 
-    ios::sync_with_stdio(0);
-    cin.tie(0);
+    // ios::sync_with_stdio(0);
+    // cin.tie(0);
 
     // Exercise difficulty: 800
     // Exercise name: Energy Crystals
@@ -57,18 +57,26 @@ int main()
         int steps = 0;
         int minPosition = 0;
 
+        bool rule = verify(crystals);
+
         while (!completed)
         {
             minPosition = findMinPosition(crystals);
 
-            while (verify(crystals))
+            while (rule && crystals[minPosition] <= x)
             {
                 crystals[minPosition]++;
+                rule = verify(crystals);
+                
             }
 
+            cout << "hello\n";
+
             crystals[minPosition]--;
-            steps++;
+            rule = verify(crystals);
+
             completed = crystals[0] == x && crystals[1] == x && crystals[2] == x;
+            steps++;
         }
 
         cout << steps << "\n";
