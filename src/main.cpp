@@ -2,87 +2,44 @@
 
 using namespace std;
 
-int findMinPosition(vector<int> &v)
+#define int long long
+
+void solve()
 {
-
-    int best = INT_MAX;
-    int minPosition = 0;
-    for (int i = 0; i < 3; i++)
+    int x;
+    cin >> x;
+    int ans = 0;
+    int a1 = 0, a2 = 0, a3 = 0;
+    while (min({a1, a2, a3}) < x)
     {
-        if (v[i] < best)
+        if (a1 <= a2 && a1 <= a3)
         {
-            best = v[i];
-            minPosition = i;
+            a1 = min(a2, a3) * 2 + 1;
         }
+        else if (a2 <= a1 && a2 <= a3)
+        {
+            a2 = min(a1, a3) * 2 + 1;
+        }
+        else
+        {
+            a3 = min(a1, a2) * 2 + 1;
+        }
+        ans++;
     }
-
-    return minPosition;
+    cout << ans << '\n';
 }
 
-bool verify(vector<int> &v)
+signed main()
 {
+    ios_base::sync_with_stdio(false);
+    cin.tie(0);
+    cout.tie(0);
 
-    int a = v[0], b = v[1], c = v[2];
-
-    bool first = a >= b / 2 && a >= c / 2;
-
-    bool second = b >= a / 2 && b >= c / 2;
-
-    bool third = c >= a / 2 && c >= b / 2;
-
-    return first && second && third;
-}
-
-int main()
-{
-
-    // ios::sync_with_stdio(0);
-    // cin.tie(0);
-
-    // Exercise difficulty: 800
-    // Exercise name: Energy Crystals
-    // Link to the exercise: https://codeforces.com/contest/2111/problem/A
-    // Solution:
-
-    int t = 0, x = 0;
-
-    cin >> t;
-
-    while (t)
+    int tests = 1;
+    cin >> tests;
+    for (int test = 0; test < tests; test++)
     {
-        cin >> x;
-        vector<int> crystals = {0, 0, 0};
-
-        bool completed = crystals[0] == x && crystals[1] == x && crystals[2] == x;
-        int steps = 0;
-        int minPosition = 0;
-
-        bool rule = verify(crystals);
-
-        while (!completed)
-        {
-            minPosition = findMinPosition(crystals);
-
-            while (rule && crystals[minPosition] <= x)
-            {
-                crystals[minPosition]++;
-                rule = verify(crystals);
-                
-            }
-
-            cout << "hello\n";
-
-            crystals[minPosition]--;
-            rule = verify(crystals);
-
-            completed = crystals[0] == x && crystals[1] == x && crystals[2] == x;
-            steps++;
-        }
-
-        cout << steps << "\n";
-
-        t--;
+        solve();
     }
-
     return 0;
 }
