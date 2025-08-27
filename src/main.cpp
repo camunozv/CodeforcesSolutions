@@ -1,45 +1,70 @@
 #include <bits/stdc++.h>
+#define ll long long int
 
 using namespace std;
 
-#define int long long
-
-void solve()
+void solve(ll &n)
 {
-    int x;
-    cin >> x;
-    int ans = 0;
-    int a1 = 0, a2 = 0, a3 = 0;
-    while (min({a1, a2, a3}) < x)
+
+    ll p = 0;
+    ll num = 1;
+    ll control = num + pow(10, p);
+
+    vector<ll> ans;
+
+    while (control <= n)
     {
-        if (a1 <= a2 && a1 <= a3)
+        if (n % control == 0 && control % 10 == 1)
         {
-            a1 = min(a2, a3) * 2 + 1;
+            ans.push_back(n / control);
         }
-        else if (a2 <= a1 && a2 <= a3)
-        {
-            a2 = min(a1, a3) * 2 + 1;
-        }
-        else
-        {
-            a3 = min(a1, a2) * 2 + 1;
-        }
-        ans++;
+
+        p++;
+        control = num + pow(10, p);        
     }
-    cout << ans << '\n';
+
+    
+    if (ans.size() > 0)
+    {
+        cout << ans.size() << "\n";
+        sort(ans.begin(), ans.end());
+        for (auto x : ans)
+        {
+            cout << x << " ";
+        }
+    }
+    else
+    {
+        cout << 0;
+    }
+
+    cout << "\n";
 }
 
-signed main()
+int main()
 {
-    ios_base::sync_with_stdio(false);
-    cin.tie(0);
-    cout.tie(0);
 
-    int tests = 1;
-    cin >> tests;
-    for (int test = 0; test < tests; test++)
+    // ios::sync_with_stdio(0);
+    // cin.tie(0);
+
+    // Exercise difficulty: N/A
+    // Exercise name: The secret number
+    // Link to the exercise: https://codeforces.com/contest/2132/problem/B
+    // Solution:
+
+    int t = 0;
+    ll n = 0;
+
+    cin >> t;
+
+    while (t)
     {
-        solve();
+        cin >> n;
+
+        solve(n);
+
+        t--;
     }
+
     return 0;
 }
