@@ -1,5 +1,5 @@
 #include <bits/stdc++.h>
-#define ui unsigned int
+#define ui unsigned long long
 
 using namespace std;
 
