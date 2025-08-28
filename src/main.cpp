@@ -1,44 +1,38 @@
 #include <bits/stdc++.h>
-#define ll long long int
+#define ui unsigned int
 
 using namespace std;
 
-void solve(ll &n)
+ui solve(ui &n)
 {
+    ui p, control, coins = 0;
 
-    ll p = 0;
-    ll num = 1;
-    ll control = num + pow(10, p);
-
-    vector<ll> ans;
-
-    while (control <= n)
+    do
     {
-        if (n % control == 0 && control % 10 == 1)
+        p = 0, control = 0;
+
+        while (control <= n)
         {
-            ans.push_back(n / control);
+            p++;
+            control = pow(3, p);
         }
 
-        p++;
-        control = num + pow(10, p);        
-    }
+        p--;
 
-    
-    if (ans.size() > 0)
-    {
-        cout << ans.size() << "\n";
-        sort(ans.begin(), ans.end());
-        for (auto x : ans)
+        if (p > 0)
         {
-            cout << x << " ";
+            coins += pow(3, p + 1) + (p * pow(3, p - 1));
         }
-    }
-    else
-    {
-        cout << 0;
-    }
+        else
+        {
+            coins += pow(3, p + 1);
+        }
 
-    cout << "\n";
+        n -= pow(3, p);
+
+    } while (n > 0);
+
+    return coins;
 }
 
 int main()
@@ -47,13 +41,13 @@ int main()
     // ios::sync_with_stdio(0);
     // cin.tie(0);
 
-    // Exercise difficulty: N/A
-    // Exercise name: The secret number
-    // Link to the exercise: https://codeforces.com/contest/2132/problem/B
+    // Exercise difficulty: 1000
+    // Exercise name: The cunning seller
+    // Link to the exercise: https://codeforces.com/problemset/problem/2132/C1
     // Solution:
 
     int t = 0;
-    ll n = 0;
+    ui n = 0;
 
     cin >> t;
 
@@ -61,7 +55,7 @@ int main()
     {
         cin >> n;
 
-        solve(n);
+        cout << solve(n) << "\n";
 
         t--;
     }
